@@ -4,10 +4,12 @@
     <groupId>net.c2technology</groupId>
     <artifactId>MTG</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <packaging>jar</packaging>
+    <packaging>pom</packaging>
+    <modules>
+        <module>mtg-api</module>
+        <module>mtg-cards</module>
+    </modules>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>1.7</maven.compiler.source>
-        <maven.compiler.target>1.7</maven.compiler.target>
     </properties>
 </project>

@@ -1,22 +1,34 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Copyright (C) 2015 chris
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package net.c2technology.mtg.card;
 
-import net.c2technology.mtg.card.CardNotFoundException;
-import net.c2technology.mtg.card.Card;
+import net.c2technology.mtg.api.card.CardNotFoundException;
+import net.c2technology.mtg.api.card.Card;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedList;
+import net.c2technology.mtg.api.card.Deck;
 
 /**
  * A deck of cards
  *
  * @author Chris
  */
-public class Deck {
+public class PojoDeck implements Deck {
 
     private final LinkedList<Card> deck;
 
@@ -25,54 +37,35 @@ public class Deck {
      *
      * @param cards
      */
-    public Deck(Collection<? extends Card> cards) {
+    public PojoDeck(Collection<? extends Card> cards) {
         deck = new LinkedList(cards);
     }
 
-    /**
-     * Retruns the number of remaining cards
-     */
+    @Override
     public int cardsLeft() {
         return deck.size();
     }
 
-    /**
-     * Shuffles the deck
-     */
+    @Override
     public void shuffle() {
         Collections.shuffle(deck);
     }
 
-    /**
-     * Removes the top card from the deck.
-     *
-     * @return
-     */
-    public Card draw() {
+    @Override
+    public Card draw() throws CardNotFoundException {
         if (deck.size() > 0) {
             return deck.removeFirst();
         }
         throw new CardNotFoundException("No more cards in deck!");
     }
 
-    /**
-     * Adds the card at the given index on the top of the deck.
-     *
-     * @param card
-     * @param index
-     */
+    @Override
     public void addCard(Card card, int index) {
         deck.add(index, card);
     }
 
-    /**
-     * Searches the deck for a card with the given name (case insensitive) and
-     * returns it, removing it from the deck.
-     *
-     * @param cardName
-     * @return
-     */
-    public Card search(String cardName) {
+    @Override
+    public Card search(String cardName) throws CardNotFoundException {
         if (deck.size() == 0) {
             throw new CardNotFoundException("No more cards in deck!");
         }
@@ -90,5 +83,4 @@ public class Deck {
 
         return foundCard;
     }
-
 }
